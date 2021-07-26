@@ -1,1 +1,117 @@
-<p>first-gen works!</p>
+<div style="display: flex; justify-content: space-between;" fxLayoutGap="20px grid">
+  <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+    <div fxFlex="60">
+      <div class="mat-elevation-z8">
+        <mat-form-field>
+          <mat-label class="padding-2">Filtrar Pokemon</mat-label>
+          <input class="padding-2" matInput (keyup)="applyFilterPokemon($event)" placeholder="Pokemons..." #input>
+        </mat-form-field>
+
+        <table mat-table matSort [dataSource]="pokemonResponse" #TableOneSort="matSort">
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Nome </th>
+            <td mat-cell *matCellDef="let element"> {{element.name | titlecase}} </td>
+          </ng-container>
+
+          <!-- Mais Column -->
+          <ng-container matColumnDef="more">
+            <th mat-header-cell *matHeaderCellDef> Mais Informações </th>
+
+            <td *matCellDef="let element" class="left">
+              <button mat-raised-button color="accent" (click)="getPokemonDetails(element.url)">
+                Ver mais sobre {{element.name | titlecase}}
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsPokemon"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsPokemon;"></tr>
+        </table>
+
+        <mat-paginator #TableOnePaginator="matPaginator" [pageSizeOptions]="[10, 20]" showFirstLastButtons>
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+  <mat-card class="example-card" *ngIf="pokemonList">
+    <mat-card-header>
+      <div mat-card-avatar style="background-image: url('{{pokemonList.images.profile}}');" class="example-header-image"></div>
+      <mat-card-title>{{pokemonList.name | titlecase}}</mat-card-title>
+      <mat-card-subtitle> #{{pokemonList.order}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="{{pokemonList.images.main}}" alt="Image of {{pokemonList.name | titlecase}}">
+    <mat-card-content>
+      <p>
+
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>
+<br><br>
+<mat-divider></mat-divider>
+<br><br>
+<div style="display: flex; justify-content: space-around;" fxLayoutGap="20px grid">
+  <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%">
+    <div class="mat-elevation-z8">
+      <mat-form-field>
+        <mat-label class="padding-2">Filtrar Tipos</mat-label>
+        <input class="padding-2" matInput (keyup)="applyFilterType($event)" placeholder="Tipos..." #input>
+      </mat-form-field>
+
+      <table mat-table matSort [dataSource]="pokemonTypesResponse" #TableTwoSort="matSort">
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Nome </th>
+          <td mat-cell *matCellDef="let element"> {{element.name | titlecase}} </td>
+        </ng-container>
+
+        <!-- Details Column -->
+        <ng-container matColumnDef="details">
+          <th mat-header-cell *matHeaderCellDef> Detalhes </th>
+
+          <td mat-cell *matCellDef="let element">
+            <a href="{{element.url}}" target="_blank">{{element.url}}</a>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsTypes"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsTypes;"></tr>
+      </table>
+
+      <mat-paginator #TableTwoPaginator="matPaginator" [pageSizeOptions]="[10]" showFirstLastButtons>
+      </mat-paginator>
+    </div>
+  </div>
+  <div fxFlex="60">
+    <div class="mat-elevation-z8">
+      <mat-form-field>
+        <mat-label class="padding-2">Filtrar Habilidades</mat-label>
+        <input class="padding-2" matInput (keyup)="applyFilterAbility($event)" placeholder="Habilidades..." #input>
+      </mat-form-field>
+
+      <table mat-table matSort [dataSource]="pokemonAbilityResponse" #TableThreeSort="matSort">
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Nome </th>
+          <td mat-cell *matCellDef="let element"> {{element.name | titlecase}} </td>
+        </ng-container>
+
+        <!-- Details Column -->
+        <ng-container matColumnDef="details">
+          <th mat-header-cell *matHeaderCellDef> Detalhes </th>
+
+          <td mat-cell *matCellDef="let element">
+            <a href="{{element.url}}" target="_blank">{{element.url}}</a>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsAbility"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsAbility;"></tr>
+      </table>
+
+      <mat-paginator #TableThreePaginator="matPaginator" [pageSizeOptions]="[10]" showFirstLastButtons>
+      </mat-paginator>
+    </div>
+  </div>
+</div>

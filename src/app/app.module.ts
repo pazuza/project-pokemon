@@ -10,6 +10,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { MaterialModuleApp } from './material.module';
 
 import { FooterComponent } from './shared/footer/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar/navbar.component';
@@ -27,6 +28,7 @@ import { PokemonService } from './services/pokemon.service';
     SecondGenComponent
   ],
   imports: [
+    MaterialModuleApp,
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
